@@ -12,13 +12,17 @@ use sequoia_openpgp::parse::stream::{DecryptorBuilder, DecryptionHelper, Verific
 use sequoia_openpgp::parse::{PacketParser, PacketParserResult, Parse};
 use sequoia_openpgp::Packet;
 use sequoia_openpgp::policy::StandardPolicy;
-use sequoia_openpgp::serialize::stream::{Encryptor, LiteralWriter, Message};
+use sequoia_openpgp::armor::Kind as ArmorKind;
+use sequoia_openpgp::serialize::stream::{Armorer, Encryptor, LiteralWriter, Message};
 use sequoia_openpgp::types::{DataFormat, SymmetricAlgorithm};
 
 use crate::filesystem::{self, conflicts_with_input, literal_filename, partial_output};
 use crate::progress::{ProgressEstimator, ProgressSnapshot, ProgressStatus};
 
 const CHUNK_SIZE: usize = 64 * 1024;
+
+/// Limite da mensagem original, em caracteres Unicode. O bloco OpenPGP pode ser maior.
+pub const MAX_TEXT_MESSAGE_LENGTH: usize = 2000;
 
 #[derive(Debug, thiserror::Error)]
 pub enum CryptoError {
@@ -46,6 +50,16 @@ pub enum CryptoError {
     Symlink,
     #[error("arquivo especial não é aceito")]
     SpecialFile,
+    #[error("nenhum conteúdo informado")]
+    EmptyText,
+    #[error("senha vazia")]
+    EmptyPassword,
+    #[error("mensagem longa demais")]
+    MessageTooLong,
+    #[error("mensagem OpenPGP inválida")]
+    InvalidMessage,
+    #[error("senha incorreta")]
+    WrongPassword,
 }
 
 pub struct EncryptOptions {
@@ -565,6 +579,86 @@ pub fn encrypt_password(secret: &str) -> Password {
     Password::from(secret)
 }
 
+/// Criptografa um texto curto com o mesmo OpenPGP simétrico dos arquivos e devolve ASCII armor.
+pub fn encrypt_text(text: &str, password: &str) -> Result<String, CryptoError> {
+    let length = text.chars().count();
+    if length == 0 {
+        return Err(CryptoError::EmptyText);
+    }
+    if length > MAX_TEXT_MESSAGE_LENGTH {
+        return Err(CryptoError::MessageTooLong);
+    }
+    if password.is_empty() {
+        return Err(CryptoError::EmptyPassword);
+    }
+    let password = Password::from(password);
+    let mut output = Vec::new();
+    {
+        let message = Message::new(&mut output);
+        let message = Armorer::new(message)
+            .kind(ArmorKind::Message)
+            .build()
+            .map_err(pgp)?;
+        let message = Encryptor::with_passwords(message, Some(password))
+            .symmetric_algo(SymmetricAlgorithm::AES256)
+            .build()
+            .map_err(pgp)?;
+        let mut literal = LiteralWriter::new(message)
+            .format(DataFormat::Binary)
+            .build()
+            .map_err(pgp)?;
+        literal
+            .write_all(text.as_bytes())
+            .map_err(|err| CryptoError::OpenPgp(err.to_string()))?;
+        literal.finalize().map_err(pgp)?;
+    }
+    String::from_utf8(output).map_err(|_| CryptoError::InvalidMessage)
+}
+
+/// Descriptografa um bloco `-----BEGIN PGP MESSAGE-----` com a mesma política dos arquivos.
+pub fn decrypt_text(armored: &str, password: &str) -> Result<String, CryptoError> {
+    let armored = armored.trim();
+    if armored.is_empty() {
+        return Err(CryptoError::EmptyText);
+    }
+    if password.is_empty() {
+        return Err(CryptoError::EmptyPassword);
+    }
+    if !armored.contains("-----BEGIN PGP MESSAGE-----") || !armored.contains("-----END PGP MESSAGE-----") {
+        return Err(CryptoError::InvalidMessage);
+    }
+    let password = Password::from(password);
+    let helper = PasswordHelper {
+        password: password.clone(),
+    };
+    let policy = StandardPolicy::new();
+    let mut decryptor = match DecryptorBuilder::from_bytes(armored.as_bytes()) {
+        Ok(builder) => match builder.with_policy(&policy, None, helper) {
+            Ok(decryptor) => decryptor,
+            Err(err) => return Err(password_or_invalid(&err.to_string())),
+        },
+        Err(_) => return Err(CryptoError::InvalidMessage),
+    };
+    let mut plain = Vec::new();
+    decryptor
+        .read_to_end(&mut plain)
+        .map_err(|err| password_or_invalid(&err.to_string()))?;
+    String::from_utf8(plain).map_err(|_| CryptoError::InvalidMessage)
+}
+
+fn password_or_invalid(detail: &str) -> CryptoError {
+    let folded = detail.to_lowercase();
+    if folded.contains("senha")
+        || folded.contains("password")
+        || folded.contains("passphrase")
+        || folded.contains("decrypt")
+    {
+        CryptoError::WrongPassword
+    } else {
+        CryptoError::InvalidMessage
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1034,5 +1128,44 @@ mod tests {
             filesystem::suggested_plaintext_name(&gpg),
             "relatório final.tar.gz"
         );
+    }
+
+    #[test]
+    fn text_roundtrip_preserves_unicode_and_lines() {
+        let samples = [
+            "hello",
+            "ação, coração, não",
+            "linha 1\nlinha 2\n",
+            "日本語のテスト",
+            "中文测试",
+            "emoji 🔐✨",
+            "aspas \" ' < > & / \\",
+        ];
+        for sample in samples {
+            let armored = encrypt_text(sample, "senha segura").unwrap();
+            assert!(armored.contains("-----BEGIN PGP MESSAGE-----"));
+            assert!(armored.contains("-----END PGP MESSAGE-----"));
+            assert_eq!(decrypt_text(&armored, "senha segura").unwrap(), sample);
+        }
+    }
+
+    #[test]
+    fn text_rejects_wrong_password_empty_input_and_length() {
+        let armored = encrypt_text("segredo", "certa").unwrap();
+        assert!(matches!(decrypt_text(&armored, "errada"), Err(CryptoError::WrongPassword)));
+        assert!(matches!(encrypt_text("", "certa"), Err(CryptoError::EmptyText)));
+        assert!(matches!(encrypt_text("oi", ""), Err(CryptoError::EmptyPassword)));
+        assert!(matches!(decrypt_text("", "certa"), Err(CryptoError::EmptyText)));
+        assert!(matches!(decrypt_text(&armored, ""), Err(CryptoError::EmptyPassword)));
+        assert!(matches!(
+            decrypt_text("-----BEGIN PGP MESSAGE-----\nnope\n-----END PGP MESSAGE-----", "certa"),
+            Err(CryptoError::InvalidMessage)
+        ));
+        let exact: String = "á".repeat(MAX_TEXT_MESSAGE_LENGTH);
+        assert_eq!(exact.chars().count(), MAX_TEXT_MESSAGE_LENGTH);
+        let armored = encrypt_text(&exact, "certa").unwrap();
+        assert_eq!(decrypt_text(&armored, "certa").unwrap(), exact);
+        let too_long: String = "á".repeat(MAX_TEXT_MESSAGE_LENGTH + 1);
+        assert!(matches!(encrypt_text(&too_long, "certa"), Err(CryptoError::MessageTooLong)));
     }
 }
