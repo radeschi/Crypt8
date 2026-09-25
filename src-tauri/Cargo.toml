@@ -1,6 +1,6 @@
 [package]
 name = "orangeencrypt"
-version = "1.0.0"
+version = "1.0.3"
 description = "Criptografia de arquivos OpenPGP, local e sem formato proprietário"
 authors = ["orange"]
 edition = "2021"
