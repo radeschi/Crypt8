@@ -41,6 +41,7 @@ export const ptBR: Messages = {
   folders: n("1 pasta", "{count} pastas"),
   items: n("1 item", "{count} itens"),
   aboutMenu: "Sobre o orangeEncrypt",
+  editMenu: "Editar",
   versionLabel: (version) => `Versão ${version}`,
   tagline: "Simples. Privado. Seu.",
   aboutSummary: "Criptografe arquivos e pastas com OpenPGP padrão.",

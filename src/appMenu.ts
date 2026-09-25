@@ -30,7 +30,20 @@ export async function installAppMenu(): Promise<void> {
       ]
     : [about, separator, quit];
   const app = await Submenu.new({ text: APP_NAME, items });
-  const menu = await Menu.new({ items: [app] });
+  const edit = await Submenu.new({
+    text: messages.editMenu,
+    items: [
+      await PredefinedMenuItem.new({ item: "Undo" }),
+      await PredefinedMenuItem.new({ item: "Redo" }),
+      await PredefinedMenuItem.new({ item: "Separator" }),
+      await PredefinedMenuItem.new({ item: "Cut" }),
+      await PredefinedMenuItem.new({ item: "Copy" }),
+      await PredefinedMenuItem.new({ item: "Paste" }),
+      await PredefinedMenuItem.new({ item: "Separator" }),
+      await PredefinedMenuItem.new({ item: "SelectAll" }),
+    ],
+  });
+  const menu = await Menu.new({ items: [app, edit] });
   await menu.setAsAppMenu();
 }
 

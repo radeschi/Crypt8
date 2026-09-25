@@ -41,6 +41,7 @@ export const en: Messages = {
   folders: n("1 folder", "{count} folders"),
   items: n("1 item", "{count} items"),
   aboutMenu: "About orangeEncrypt",
+  editMenu: "Edit",
   versionLabel: (version) => `Version ${version}`,
   tagline: "Simple. Private. Yours.",
   aboutSummary: "Encrypt files and folders with standard OpenPGP.",

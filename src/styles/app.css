@@ -366,15 +366,24 @@ input {
 
 .stage.text-mode {
   justify-content: flex-start;
-  overflow: auto;
+  align-items: stretch;
+  overflow: hidden;
   text-align: left;
+  padding-bottom: 28px;
 }
 
 .text-flow {
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.text-message {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .text-top {
@@ -395,8 +404,10 @@ input {
 
 .text-box {
   width: 100%;
-  min-height: 88px;
-  max-height: 140px;
+  flex: 1 1 0;
+  min-height: 0;
+  height: 0;
+  overflow: auto;
   resize: none;
   border: 0;
   border-radius: 8px;
