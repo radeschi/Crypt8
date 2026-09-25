@@ -46,6 +46,13 @@ jobs:
           sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev patchelf xdg-utils
       - run: npm ci
 
+      - name: Assinatura ad-hoc no macOS sem Developer ID
+        if: runner.os == 'macOS'
+        run: |
+          if [ -z "${APPLE_SIGNING_IDENTITY:-}" ]; then
+            echo "APPLE_SIGNING_IDENTITY=-" >> "$GITHUB_ENV"
+          fi
+
       - name: Compilar
         if: github.ref_type != 'tag'
         uses: tauri-apps/tauri-action@v1
