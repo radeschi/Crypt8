@@ -40,7 +40,7 @@ export const de: Messages = {
   files: n("1 Datei", "{count} Dateien"),
   folders: n("1 Ordner", "{count} Ordner"),
   items: n("1 Element", "{count} Elemente"),
-  aboutMenu: "Über orangeEncrypt",
+  aboutMenu: "Über Crypt8",
   editMenu: "Bearbeiten",
   versionLabel: (version) => `Version ${version}`,
   tagline: "Einfach. Privat. Deins.",

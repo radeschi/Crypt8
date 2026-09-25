@@ -39,7 +39,7 @@ export const ja: Messages = {
   files: n("{count}ファイル"),
   folders: n("{count}フォルダ"),
   items: n("{count}項目"),
-  aboutMenu: "orangeEncrypt について",
+  aboutMenu: "Crypt8 について",
   editMenu: "編集",
   versionLabel: (version) => `バージョン ${version}`,
   tagline: "シンプル。プライベート。あなたのもの。",

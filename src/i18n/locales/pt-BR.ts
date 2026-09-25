@@ -40,7 +40,7 @@ export const ptBR: Messages = {
   files: n("1 arquivo", "{count} arquivos"),
   folders: n("1 pasta", "{count} pastas"),
   items: n("1 item", "{count} itens"),
-  aboutMenu: "Sobre o orangeEncrypt",
+  aboutMenu: "Sobre o Crypt8",
   editMenu: "Editar",
   versionLabel: (version) => `Versão ${version}`,
   tagline: "Simples. Privado. Seu.",

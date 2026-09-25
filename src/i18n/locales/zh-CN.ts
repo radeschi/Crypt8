@@ -39,7 +39,7 @@ export const zhCN: Messages = {
   files: n("{count} 个文件"),
   folders: n("{count} 个文件夹"),
   items: n("{count} 项"),
-  aboutMenu: "关于 orangeEncrypt",
+  aboutMenu: "关于 Crypt8",
   editMenu: "编辑",
   versionLabel: (version) => `版本 ${version}`,
   tagline: "简单。私密。属于你。",

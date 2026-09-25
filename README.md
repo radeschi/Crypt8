@@ -1,4 +1,4 @@
-# orangeEncrypt
+# Crypt8
 
 Simple, cross-platform file encryption powered by OpenPGP.
 
@@ -7,32 +7,32 @@ A small desktop app for encrypting files on your own computer. No account, no se
 Português: [README-pt_BR.md](README-pt_BR.md)
 
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange)](LICENSE)
-[![GitHub release](https://img.shields.io/github/v/release/radeschi/orangeEncrypt)](https://github.com/radeschi/orangeEncrypt/releases)
-[![Build](https://img.shields.io/github/actions/workflow/status/radeschi/orangeEncrypt/build.yml?branch=main)](https://github.com/radeschi/orangeEncrypt/actions/workflows/build.yml)
+[![GitHub release](https://img.shields.io/github/v/release/radeschi/Crypt8)](https://github.com/radeschi/Crypt8/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/radeschi/Crypt8/build.yml?branch=main)](https://github.com/radeschi/Crypt8/actions/workflows/build.yml)
 
 Website: [apps.orange8.net](https://apps.orange8.net)
 
-![orangeEncrypt demo](orangeEncrypt-demo.gif)
+![Crypt8 demo](Crypt8-demo.gif)
 
 ## Need to protect a file before sending or storing it?
 
 A common shortcut is to put the file in a ZIP and set a password. That works as packaging: ZIP is an archive and compression format that can also carry a password.
 
-orangeEncrypt is for a narrower job. When the goal is to protect a file, encryption is the operation itself. You do not create an account, send the file to a service, or wrap it in an archive just to lock it.
+Crypt8 is for a narrower job. When the goal is to protect a file, encryption is the operation itself. You do not create an account, send the file to a service, or wrap it in an archive just to lock it.
 
-## Why orangeEncrypt?
+## Why Crypt8?
 
 The app stays on your machine. Encryption does not upload the file, and it does not ask for an account or a server.
 
 It is open source. The encrypted file is ordinary OpenPGP, so it can still be opened with [GnuPG](https://gnupg.org/) if this app is gone.
 
-ZIP is great for packaging files. orangeEncrypt is built for a different job: encrypting them.
+ZIP is great for packaging files. Crypt8 is built for a different job: encrypting them.
 
 Password-protected ZIP:
 
 `file → archive → password`
 
-orangeEncrypt:
+Crypt8:
 
 `file → encryption → encrypted file`
 
@@ -66,11 +66,11 @@ A single file is encrypted as itself. Several entries are packed into an uncompr
 - Signed update check against the GitHub release feed, with a manual check in About
 - Installers built for macOS (Apple Silicon and Intel), Windows (x64 and ARM), and Linux (x64 and ARM)
 
-## orangeEncrypt vs. Encrypto
+## Crypt8 vs. Encrypto
 
-Both are desktop tools for protecting files with a password, on the computer where the file already is. The difference highlighted here is that orangeEncrypt publishes its source.
+Both are desktop tools for protecting files with a password, on the computer where the file already is. The difference highlighted here is that Crypt8 publishes its source.
 
-| | orangeEncrypt | Encrypto |
+| | Crypt8 | Encrypto |
 | --- | --- | --- |
 | Desktop application | ✓ | ✓ |
 | Local encryption workflow | ✓ | ✓ |
@@ -80,11 +80,11 @@ Both are desktop tools for protecting files with a password, on the computer whe
 | Open source | ✓ | — |
 | Source code available for inspection | ✓ | — |
 
-orangeEncrypt is intended as an open-source alternative for users who want a simple desktop encryption workflow while being able to inspect the source code.
+Crypt8 is intended as an open-source alternative for users who want a simple desktop encryption workflow while being able to inspect the source code.
 
 ## Why not just use a password-protected ZIP?
 
-Password-protected ZIP files can be useful, especially when you also need archiving and compression. orangeEncrypt targets a different workflow: when the primary goal is protecting a file, encryption is the primary operation.
+Password-protected ZIP files can be useful, especially when you also need archiving and compression. Crypt8 targets a different workflow: when the primary goal is protecting a file, encryption is the primary operation.
 
 A single file stays a single `.gpg` file. It is not compressed, and it is not wrapped in a ZIP.
 
@@ -130,7 +130,7 @@ That is the scope of this claim. The app does not promise anonymity, and a `.gpg
 
 ## Install
 
-Download an installer from the [releases](https://github.com/radeschi/orangeEncrypt/releases).
+Download an installer from the [releases](https://github.com/radeschi/Crypt8/releases).
 
 GitHub Actions builds these targets:
 
@@ -144,7 +144,7 @@ Updates, once you are on a build that includes them, are checked against the lat
 
 ## Usage
 
-1. Open orangeEncrypt.
+1. Open Crypt8.
 2. Drop a file, or choose one.
 3. Enter the password and confirm it.
 4. Click Encrypt.
@@ -154,7 +154,7 @@ To decrypt, drop a `.gpg` file, confirm that you want to decrypt it, and enter t
 
 ## Open source
 
-orangeEncrypt is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
+Crypt8 is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
 
 ## Project status
 
@@ -162,7 +162,7 @@ The version in this source tree is 1.0.5. The project is in active development: 
 
 ## Contributing
 
-Issues and pull requests are welcome. Use [issues](https://github.com/radeschi/orangeEncrypt/issues) for bugs and ideas. There is no separate contributing guide yet.
+Issues and pull requests are welcome. Use [issues](https://github.com/radeschi/Crypt8/issues) for bugs and ideas. There is no separate contributing guide yet.
 
 Development needs Node.js, Rust, and the system build tools. GnuPG is used only by the interoperability tests.
 
@@ -187,7 +187,7 @@ npm run tauri build
 
 ## Links
 
-- [Repository](https://github.com/radeschi/orangeEncrypt)
-- [Releases](https://github.com/radeschi/orangeEncrypt/releases)
-- [Issues](https://github.com/radeschi/orangeEncrypt/issues)
+- [Repository](https://github.com/radeschi/Crypt8)
+- [Releases](https://github.com/radeschi/Crypt8/releases)
+- [Issues](https://github.com/radeschi/Crypt8/issues)
 - [apps.orange8.net](https://apps.orange8.net)

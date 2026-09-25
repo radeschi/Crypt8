@@ -92,7 +92,7 @@ impl From<CryptoError> for AppError {
     fn from(error: CryptoError) -> Self {
         let app = Self::from_crypto(error);
         if let Some(detail) = &app.detail {
-            eprintln!("orangeEncrypt: {} ({})", app.message, detail);
+            eprintln!("Crypt8: {} ({})", app.message, detail);
         }
         app
     }

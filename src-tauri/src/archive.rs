@@ -119,7 +119,7 @@ pub fn decrypt_archive(
     }
     let stem = archive_stem(&options.input);
     let temp = std::env::temp_dir().join(format!(
-        "orangeencrypt-{}-{}.tar",
+        "crypt8-{}-{}.tar",
         std::process::id(),
         std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
