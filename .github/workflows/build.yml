@@ -16,6 +16,8 @@ jobs:
         include:
           - os: macos-latest
             target: aarch64-apple-darwin
+          - os: macos-latest
+            target: x86_64-apple-darwin
           - os: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
           - os: ubuntu-24.04-arm
@@ -45,11 +47,31 @@ jobs:
 
       - run: npm ci
 
-      - uses: tauri-apps/tauri-action@v0
+      - name: Compilar
+        if: github.ref_type != 'tag'
+        uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --target ${{ matrix.target }}
+          uploadUpdaterJson: false
+
+      - name: Compilar e publicar rascunho
+        if: github.ref_type == 'tag'
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: --target ${{ matrix.target }}
+          tagName: "v__VERSION__"
+          releaseName: "orangeEncrypt v__VERSION__"
+          releaseBody: |
+            ## orangeEncrypt v__VERSION__
+
+            Release automática do orangeEncrypt.
+          releaseDraft: true
+          prerelease: false
+          uploadUpdaterJson: false
 
       - uses: actions/upload-artifact@v4
         if: github.ref_type != 'tag'
