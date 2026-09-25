@@ -1,8 +1,8 @@
 # Crypt8
 
-Criptografia de arquivos simples e multiplataforma, com OpenPGP.
+Criptografia simples e multiplataforma para arquivos e mensagens curtas, com OpenPGP.
 
-Um aplicativo de mesa pequeno para criptografar arquivos no seu computador. Não há conta, servidor nem envio do arquivo como parte da criptografia. O resultado é um `.gpg` OpenPGP comum.
+Um aplicativo de mesa pequeno para criptografar arquivos e texto no seu computador. Não há conta, servidor nem envio como parte da criptografia. Um arquivo vira um `.gpg` OpenPGP comum. Uma mensagem vira texto OpenPGP que dá para copiar.
 
 English: [README.md](README.md)
 
@@ -12,7 +12,9 @@ English: [README.md](README.md)
 
 Site: [apps.orange8.net](https://apps.orange8.net)
 
-![Crypt8 demo](Crypt8-demo.gif)
+![Criptografia de arquivos no Crypt8](crypt8-file.gif)
+
+![Criptografia de texto no Crypt8](crypt8-text.gif)
 
 ## Precisa proteger um arquivo antes de enviar ou guardar?
 
@@ -55,6 +57,7 @@ Um único arquivo é criptografado como ele mesmo. Várias entradas são empacot
 ## Recursos
 
 - Criptografia e descriptografia locais de arquivos e pastas
+- Criptografia e descriptografia locais de uma mensagem curta, de até 2.000 caracteres, como texto OpenPGP
 - Proteção por senha, com confirmação da senha antes de criptografar
 - Saída OpenPGP (`.gpg`), legível pelo GnuPG
 - Janela pequena: solte um arquivo ou escolha um
@@ -97,7 +100,7 @@ A [Sequoia PGP](https://sequoia-pgp.org/) grava uma mensagem OpenPGP binária:
 - senha derivada por S2K
 - integridade por SEIPD v1 (MDC da RFC 4880)
 
-Não há ASCII armor, chave pública nem AEAD. A gravação não comprime. A leitura aceita a compressão que o GnuPG usa por padrão.
+Um arquivo é OpenPGP binário: sem ASCII armor, sem chave pública e sem AEAD. Uma mensagem curta usa a mesma mensagem OpenPGP, gravada em ASCII armor para poder ser colada em outro aplicativo. A gravação não comprime. A leitura aceita a compressão que o GnuPG usa por padrão.
 
 O arquivo original não muda. A saída vai para `*.gpg.partial` e só é renomeada no fim. Cancelar apaga esse parcial.
 
@@ -152,13 +155,15 @@ As atualizações, numa build que já as inclua, são conferidas na release mais
 
 Para descriptografar, solte um `.gpg`, confirme que deseja descriptografar e informe a senha. Num arquivo comum, dá para abrir ou salvar uma cópia. Em vários arquivos empacotados como TAR, abrir mostra a pasta e salvar pede um diretório.
 
+Para criptografar uma mensagem, escolha Texto, digite até 2.000 caracteres, informe a senha e criptografe. Copie o bloco inteiro, incluindo `-----BEGIN PGP MESSAGE-----` e `-----END PGP MESSAGE-----`. Para ler, escolha Texto, depois Descriptografar, cole o bloco e informe a senha. O texto original pode ser copiado. Nada desse fluxo é salvo.
+
 ## Código aberto
 
 O Crypt8 usa a GNU General Public License v3.0. Veja [LICENSE](LICENSE).
 
 ## Estado do projeto
 
-A versão nesta árvore de código é 1.0.5. O projeto está em desenvolvimento ativo: o fluxo de criptografar e descriptografar já pode ser usado, e a interface e as ferramentas de release ainda estão sendo refinadas.
+A versão nesta árvore de código é 1.1.1. O projeto está em desenvolvimento ativo: a criptografia de arquivos e de texto já pode ser usada, e a interface e as ferramentas de release ainda estão sendo refinadas.
 
 ## Contribuir
 
