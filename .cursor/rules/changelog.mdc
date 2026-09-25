@@ -1,0 +1,22 @@
+---
+description: Every commit must add its change to CHANGELOG.md
+alwaysApply: true
+---
+
+# Changelog
+
+Every git commit that changes the project must update `CHANGELOG.md` in the same commit.
+
+- Add the entry under `## [Unreleased]`.
+- Use `### Added`, `### Changed`, `### Fixed`, `### Removed`, or `### Security`.
+- Write one English bullet for what changed and why. Do not skip a commit because it is small, a version bump, CI, or docs.
+- When a release version is bumped, move the `Unreleased` notes into `## [x.y.z] - YYYY-MM-DD`, add the release compare link, and leave `Unreleased` empty.
+- Do not create the commit unless the user asked for it.
+
+```markdown
+## [Unreleased]
+
+### Fixed
+
+- Restored native paste in text fields. The app menu had replaced the system Edit menu.
+```
