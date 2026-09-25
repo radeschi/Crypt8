@@ -55,6 +55,7 @@ export interface Messages {
   folders: (count: number) => string;
   items: (count: number) => string;
   aboutMenu: string;
+  editMenu: string;
   versionLabel: (version: string) => string;
   tagline: string;
   aboutSummary: string;

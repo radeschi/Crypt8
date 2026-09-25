@@ -40,6 +40,7 @@ export const zhCN: Messages = {
   folders: n("{count} 个文件夹"),
   items: n("{count} 项"),
   aboutMenu: "关于 orangeEncrypt",
+  editMenu: "编辑",
   versionLabel: (version) => `版本 ${version}`,
   tagline: "简单。私密。属于你。",
   aboutSummary: "使用标准 OpenPGP 加密文件和文件夹。",

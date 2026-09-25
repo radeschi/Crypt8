@@ -40,6 +40,7 @@ export const ja: Messages = {
   folders: n("{count}フォルダ"),
   items: n("{count}項目"),
   aboutMenu: "orangeEncrypt について",
+  editMenu: "編集",
   versionLabel: (version) => `バージョン ${version}`,
   tagline: "シンプル。プライベート。あなたのもの。",
   aboutSummary: "標準の OpenPGP でファイルとフォルダを暗号化します。",

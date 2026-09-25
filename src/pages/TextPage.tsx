@@ -104,7 +104,7 @@ export function TextPage({ onFiles }: { onFiles: () => void }) {
           <button type="button" aria-pressed={intent === "decrypt"} onClick={() => selectIntent("decrypt")}>{messages.decrypt}</button>
         </div>
       </div>
-      <label>
+      <label className="text-message">
         {intent === "encrypt" ? messages.messageLabel : messages.encryptedMessage}
         <textarea
           className="text-box"
