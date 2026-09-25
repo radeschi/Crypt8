@@ -8,6 +8,8 @@ There is no account, no server, and no proprietary format. If orangeEncrypt disa
 
 Website: [apps.orange8.net](https://apps.orange8.net)
 
+![orangeEncrypt](docs/app.png)
+
 ## What it does
 
 Drop a file, enter a password, and get a `.gpg`.

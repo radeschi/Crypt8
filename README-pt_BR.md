@@ -8,6 +8,8 @@ Não há conta, servidor nem formato proprietário. Se o orangeEncrypt deixar de
 
 Site: [apps.orange8.net](https://apps.orange8.net)
 
+![orangeEncrypt](docs/app.png)
+
 ## O que ele faz
 
 Arraste um arquivo, informe a senha e receba um `.gpg`.
