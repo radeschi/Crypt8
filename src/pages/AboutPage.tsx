@@ -9,6 +9,7 @@ import {
   APP_WEBSITE,
   APP_WEBSITE_LABEL,
 } from "../branding";
+import { UpdateNotice } from "../components/UpdateNotice";
 import { messages } from "../i18n/index.ts";
 import appIcon from "../../src-tauri/icons/icon.png";
 
@@ -42,6 +43,7 @@ export function AboutPage() {
             GPLv3
           </button>
         </p>
+        <UpdateNotice autoCheck={false} busy={false} showButton />
         <nav className="about-links">
           <button type="button" onClick={() => void openUrl(APP_WEBSITE)}>{messages.websiteLink}</button>
           {APP_REPOSITORY && (

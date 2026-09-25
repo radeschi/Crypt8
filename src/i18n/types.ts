@@ -45,5 +45,19 @@ export interface Messages {
   websiteLink: string;
   licenseLink: string;
   githubLink: string;
+  checkForUpdates: string;
+  checkingUpdates: string;
+  noUpdateAvailable: string;
+  updateAvailable: string;
+  updateNow: string;
+  updateLater: string;
+  downloadingUpdate: string;
+  installingUpdate: string;
+  updateInstalled: string;
+  restartToFinish: string;
+  updateCheckError: string;
+  updateInstallError: string;
+  updateSignatureError: string;
+  updateWhileBusy: string;
   errors: Record<string, string>;
 }
