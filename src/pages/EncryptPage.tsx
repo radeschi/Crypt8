@@ -1,8 +1,10 @@
+import { listen } from "@tauri-apps/api/event";
 import { open, save } from "@tauri-apps/plugin-dialog";
 import { openPath, openUrl, revealItemInDir } from "@tauri-apps/plugin-opener";
 import { useCallback, useEffect, useState } from "react";
 import { APP_NAME, APP_WEBSITE, APP_WEBSITE_LABEL } from "../branding";
 import { DocumentMark, ScannerBand } from "../components/DocumentMark";
+import { publishCryptoBusy, UpdateNotice } from "../components/UpdateNotice";
 import { locale, messages } from "../i18n/index.ts";
 import { useFileDrop } from "../hooks/useFileDrop";
 import {
@@ -272,6 +274,15 @@ export function EncryptPage() {
 
   const issue = passwordIssue(password, confirmation);
   const working = phase === "encrypting" || phase === "decrypting";
+
+  useEffect(() => {
+    publishCryptoBusy(working);
+    let unlisten: (() => void) | undefined;
+    void listen("crypto-busy-ask", () => publishCryptoBusy(working)).then((stop) => {
+      unlisten = stop;
+    }).catch(() => undefined);
+    return () => unlisten?.();
+  }, [working]);
   const scanMode = phase === "decrypting" ? "decrypt" : working ? "encrypt" : "idle";
   const stats = progress
     ? [ `${Math.round(progress.percentage)}%`, formatRate(progress.bytesPerSecond, locale), formatRemaining(progress.estimatedRemainingSeconds, progress.status, messages) ]
@@ -440,6 +451,7 @@ export function EncryptPage() {
       >
         {APP_WEBSITE_LABEL}
       </a>
+      <UpdateNotice autoCheck busy={working} showButton={false} />
       <div className="progress-track" aria-hidden="true">
         <span style={{ width: working && progress ? `${progress.percentage}%` : "0%" }} />
       </div>
