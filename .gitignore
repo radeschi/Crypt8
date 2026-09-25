@@ -39,3 +39,4 @@ coverage
 
 # Script local de release. Não versionar.
 newversion.sh
+__pycache__/
