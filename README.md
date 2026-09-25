@@ -20,8 +20,6 @@ Drop a file, enter a password, and get a `.gpg`.
 
 A single file does not go through TAR. Multiple entries are packed into an uncompressed TAR and only then encrypted. Decryption recognizes the TAR from its contents.
 
-The password reminder stays on screen. It is not written into the file and it is not stored.
-
 ## Recover without the app
 
 A single file:

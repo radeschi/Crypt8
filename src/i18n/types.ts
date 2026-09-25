@@ -6,7 +6,6 @@ export interface Messages {
   chooseFile: string;
   password: string;
   confirmPassword: string;
-  reminder: string;
   show: string;
   hide: string;
   encrypt: string;
@@ -24,7 +23,6 @@ export interface Messages {
   another: string;
   again: string;
   mismatch: string;
-  reminderWarning: string;
   emptyPassword: string;
   decryptAsk: string;
   decrypt: string;

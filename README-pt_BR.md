@@ -20,8 +20,6 @@ Arraste um arquivo, informe a senha e receba um `.gpg`.
 
 Um único arquivo não passa por TAR. Várias entradas são empacotadas em TAR, sem compressão, e só então criptografadas. A descriptografia reconhece o TAR pelo conteúdo.
 
-O lembrete da senha fica só na tela. Ele não entra no arquivo e não é guardado.
-
 ## Recuperar sem o aplicativo
 
 Arquivo único:
