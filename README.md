@@ -1,93 +1,95 @@
 # orangeEncrypt
 
-Criptografe arquivos e pastas no seu computador, com uma senha, no formato aberto OpenPGP.
+Português: [README-pt_BR.md](README-pt_BR.md)
 
-Não há conta, servidor nem formato proprietário. Se o orangeEncrypt deixar de existir, o arquivo continua recuperável com o [GnuPG](https://gnupg.org/).
+Encrypt files and folders on your computer, with a password, in the open OpenPGP format.
 
-Site: [apps.orange8.net](https://apps.orange8.net)
+There is no account, no server, and no proprietary format. If orangeEncrypt disappears, the file can still be recovered with [GnuPG](https://gnupg.org/).
 
-## O que ele faz
+Website: [apps.orange8.net](https://apps.orange8.net)
 
-Arraste um arquivo, informe a senha e receba um `.gpg`.
+## What it does
 
-| Entrada | Resultado |
+Drop a file, enter a password, and get a `.gpg`.
+
+| Input | Result |
 | --- | --- |
-| Um arquivo | `documento.pdf.gpg` |
-| Uma pasta | `Documentos.tar.gpg` |
-| Vários arquivos ou pastas | `Archive.tar.gpg` |
+| One file | `documento.pdf.gpg` |
+| One folder | `Documentos.tar.gpg` |
+| Several files or folders | `Archive.tar.gpg` |
 
-Um único arquivo não passa por TAR. Várias entradas são empacotadas em TAR, sem compressão, e só então criptografadas. A descriptografia reconhece o TAR pelo conteúdo.
+A single file does not go through TAR. Multiple entries are packed into an uncompressed TAR and only then encrypted. Decryption recognizes the TAR from its contents.
 
-O lembrete da senha fica só na tela. Ele não entra no arquivo e não é guardado.
+The password reminder stays on screen. It is not written into the file and it is not stored.
 
-## Recuperar sem o aplicativo
+## Recover without the app
 
-Arquivo único:
+A single file:
 
 ```bash
 gpg --output documento.pdf --decrypt documento.pdf.gpg
 ```
 
-Pacote com vários arquivos:
+A package with several files:
 
 ```bash
 gpg --output arquivo.tar --decrypt arquivo.tar.gpg
 tar -xf arquivo.tar
 ```
 
-A senha errada não revela o conteúdo. Quem esquecer a senha não a recupera a partir do `.gpg`.
+A wrong password does not reveal the contents. A forgotten password cannot be recovered from the `.gpg`.
 
-## Como é protegido
+## How it is protected
 
-A Sequoia PGP escreve uma mensagem OpenPGP binária:
+Sequoia PGP writes a binary OpenPGP message:
 
 - AES-256
-- chave de sessão em SKESK
-- senha derivada por S2K
-- integridade por SEIPD v1 (MDC da RFC 4880)
+- session key in an SKESK
+- password derived with S2K
+- integrity with SEIPD v1 (RFC 4880 MDC)
 
-Não há ASCII armor, chave pública nem AEAD. A gravação não comprime. A leitura aceita a compressão que o GnuPG usa por padrão.
+There is no ASCII armor, no public key, and no AEAD. Writing does not compress. Reading accepts the compression GnuPG uses by default.
 
-O original não é alterado. O destino parcial se chama `*.gpg.partial` e só é renomeado no fim. Cancelar apaga o parcial.
+The original is left unchanged. The partial destination is named `*.gpg.partial` and is renamed only at the end. Cancel deletes the partial.
 
-A senha vai da interface para o processo local e é zerada em memória. Ela não entra em argumento de processo, arquivo temporário ou `localStorage`.
+The password travels from the interface to the local process and is wiped from memory. It is not passed as a process argument, written to a temporary file, or stored in `localStorage`.
 
-O backend é o RustCrypto da Sequoia, marcado por ela como experimental e sem garantia de tempo constante. Ele foi escolhido para o aplicativo não depender de Nettle ou OpenSSL instalados no sistema.
+The backend is Sequoia’s RustCrypto, which Sequoia marks as experimental and not constant-time. It was chosen so the app does not depend on Nettle or OpenSSL being installed on the system.
 
-## Idiomas
+## Languages
 
-O idioma segue o sistema: português, inglês, espanhol, alemão, francês, japonês e chinês. Um locale sem tradução usa inglês.
+The language follows the system: Portuguese, English, Spanish, German, French, Japanese, and Chinese. A locale without a translation uses English.
 
-## Desenvolvimento
+## Development
 
-É preciso Node.js, Rust e as ferramentas de compilação do sistema. O GnuPG entra só nos testes de interoperabilidade.
+You need Node.js, Rust, and the system build tools. GnuPG is used only by the interoperability tests.
 
 ```bash
 npm install
 npm run tauri dev
 ```
 
-Para forçar um idioma nesta sessão:
+To force a language for this session:
 
 ```bash
 VITE_LOCALE=en npm run tauri dev
 ```
 
-Testes:
+Tests:
 
 ```bash
 npm test
 cargo test --manifest-path src-tauri/Cargo.toml
 ```
 
-Build de produção:
+Production build:
 
 ```bash
 npm run tauri build
 ```
 
-O GitHub Actions também gera os instaladores em cada push na `main` e publica uma release quando a tag começa com `v`. Os alvos são macOS Apple Silicon, Windows x64 e ARM, e Linux x64 e ARM.
+GitHub Actions also builds the installers on every push to `main` and publishes a release when the tag starts with `v`. The targets are macOS Apple Silicon, Windows x64 and ARM, and Linux x64 and ARM.
 
-## Licença
+## License
 
-GNU General Public License v3.0. Veja [LICENSE](LICENSE).
+GNU General Public License v3.0. See [LICENSE](LICENSE).
