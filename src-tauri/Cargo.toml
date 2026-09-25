@@ -1,6 +1,6 @@
 [package]
 name = "crypt8"
-version = "1.1.0"
+version = "1.1.1"
 description = "Criptografia de arquivos OpenPGP, local e sem formato proprietário"
 authors = ["orange"]
 edition = "2021"
