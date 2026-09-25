@@ -9,12 +9,3 @@ export function passwordIssue(password: string, confirmation: string): PasswordI
   }
   return null;
 }
-
-export function reminderRepeatsPassword(password: string, reminder: string): boolean {
-  const hint = reminder.trim().toLowerCase();
-  const secret = password.toLowerCase();
-  if (!hint || !secret) {
-    return false;
-  }
-  return hint.includes(secret);
-}

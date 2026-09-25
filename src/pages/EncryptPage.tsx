@@ -22,7 +22,7 @@ import {
   verifyDecryptPassword,
 } from "../services/crypto";
 import { formatBytes, formatRate, formatRemaining } from "../services/format";
-import { passwordIssue, reminderRepeatsPassword } from "../services/password";
+import { passwordIssue } from "../services/password";
 import type { EncryptResult, ProgressEvent, SelectionInfo } from "../types/progress";
 
 type Phase =
@@ -44,7 +44,6 @@ export function EncryptPage() {
   const [outputPath, setOutputPath] = useState("");
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
-  const [reminder, setReminder] = useState("");
   const [heldPassword, setHeldPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -111,7 +110,6 @@ export function EncryptPage() {
     setOutputPath("");
     setPassword("");
     setConfirmation("");
-    setReminder("");
     setHeldPassword("");
     setVisible(false);
     setNotice(null);
@@ -273,7 +271,6 @@ export function EncryptPage() {
   }
 
   const issue = passwordIssue(password, confirmation);
-  const reminderWarning = reminderRepeatsPassword(password, reminder);
   const working = phase === "encrypting" || phase === "decrypting";
   const scanMode = phase === "decrypting" ? "decrypt" : working ? "encrypt" : "idle";
   const stats = progress
@@ -319,14 +316,7 @@ export function EncryptPage() {
                   <input aria-label={messages.confirmPassword} type={visible ? "text" : "password"} value={confirmation} autoComplete="new-password" onChange={(event) => setConfirmation(event.target.value)} />
                 </span>
               </label>
-              <label>
-                {messages.reminder}
-                <span className="field">
-                  <input aria-label={messages.reminder} type="text" value={reminder} onChange={(event) => setReminder(event.target.value)} />
-                </span>
-              </label>
               {issue === "mismatch" && confirmation.length > 0 && <p className="warning">{messages.mismatch}</p>}
-              {reminderWarning && <p className="warning">{messages.reminderWarning}</p>}
               {replaceAsk ? (
                 <div className="row">
                   <button className="btn primary" type="button" onClick={() => void startEncrypt(true)}>{messages.replace}</button>
