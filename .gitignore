@@ -36,3 +36,6 @@ Thumbs.db
 
 # Cobertura de testes
 coverage
+
+# Script local de release. Não versionar.
+newversion.sh
