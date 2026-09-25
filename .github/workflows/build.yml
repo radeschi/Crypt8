@@ -75,7 +75,7 @@ jobs:
             ## orangeEncrypt v__VERSION__
 
             Release automática do orangeEncrypt.
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
           uploadUpdaterJson: false
 
