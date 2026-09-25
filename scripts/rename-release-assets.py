@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rename GitHub Release assets to orangeEncrypt-<version>-<os>-<arch>.<ext>.
+"""Rename GitHub Release assets to Crypt8-<version>-<os>-<arch>.<ext>.
 
 The minisign signature covers file bytes, not the asset name. latest.json
 stores the GitHub asset id, so renaming the asset leaves the updater URL valid.
@@ -67,7 +67,7 @@ def matches_job(renamed: str, release_os: str, release_arch: str) -> bool:
 
 
 def rename_assets() -> None:
-    product = os.environ.get("PRODUCT_NAME", "orangeEncrypt")
+    product = os.environ.get("PRODUCT_NAME", "Crypt8")
     version = os.environ["APP_VERSION"]
     release_os = os.environ["RELEASE_OS"]
     release_arch = os.environ["RELEASE_ARCH"]
@@ -104,7 +104,7 @@ def github_json(token: str, url: str, method: str = "GET", body: dict | None = N
             "Authorization": f"Bearer {token}",
             "X-GitHub-Api-Version": "2022-11-28",
             "Content-Type": "application/json",
-            "User-Agent": "orangeencrypt-release-rename",
+            "User-Agent": "crypt8-release-rename",
         },
     )
     try:

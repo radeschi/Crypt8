@@ -9,7 +9,7 @@ const ABOUT_HEIGHT = 520;
 
 export async function installAppMenu(): Promise<void> {
   const about = await MenuItem.new({
-    id: "about-orangeencrypt",
+    id: "about-crypt8",
     text: messages.aboutMenu,
     action: () => {
       void openAbout();

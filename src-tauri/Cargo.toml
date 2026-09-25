@@ -1,12 +1,12 @@
 [package]
-name = "orangeencrypt"
+name = "crypt8"
 version = "1.1.0"
 description = "Criptografia de arquivos OpenPGP, local e sem formato proprietário"
 authors = ["orange"]
 edition = "2021"
 
 [lib]
-name = "orangeencrypt_lib"
+name = "crypt8_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
@@ -35,7 +35,7 @@ sha2 = "0.10"
 tempfile = "3"
 
 [[bin]]
-name = "orangeEncrypt"
+name = "Crypt8"
 path = "src/main.rs"
 
 [profile.release]

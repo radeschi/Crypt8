@@ -161,7 +161,7 @@ pub fn folder_action_label() -> &'static str {
 
 pub fn prepare_temp_dir() -> Result<PathBuf, CryptoError> {
     let dir = std::env::temp_dir().join(format!(
-        "orangeencrypt-{}-{}",
+        "crypt8-{}-{}",
         std::process::id(),
         std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)

@@ -275,7 +275,7 @@ pub struct DecryptRequest {
 fn map_decrypt(error: crypto::CryptoError) -> AppError {
     let app = AppError::from_decrypt(error);
     if let Some(detail) = &app.detail {
-        eprintln!("orangeEncrypt: {} ({})", app.message, detail);
+        eprintln!("Crypt8: {} ({})", app.message, detail);
     }
     app
 }

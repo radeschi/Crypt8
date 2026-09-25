@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    orangeencrypt_lib::run()
+    crypt8_lib::run()
 }
