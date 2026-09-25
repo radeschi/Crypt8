@@ -356,3 +356,29 @@ pub async fn decrypt_file(app: AppHandle, mut request: DecryptRequest) -> Result
         output_bytes: outcome.output_bytes,
     })
 }
+
+#[derive(Deserialize)]
+pub(crate) struct TextRequest {
+    text: String,
+    password: String,
+}
+
+#[tauri::command]
+pub fn encrypt_text(mut request: TextRequest) -> Result<String, AppError> {
+    let mut text = std::mem::take(&mut request.text);
+    let mut password = std::mem::take(&mut request.password);
+    let result = crypto::encrypt_text(&text, &password);
+    text.zeroize();
+    password.zeroize();
+    result.map_err(AppError::from)
+}
+
+#[tauri::command]
+pub fn decrypt_text(mut request: TextRequest) -> Result<String, AppError> {
+    let mut text = std::mem::take(&mut request.text);
+    let mut password = std::mem::take(&mut request.password);
+    let result = crypto::decrypt_text(&text, &password);
+    text.zeroize();
+    password.zeroize();
+    result.map_err(AppError::from)
+}

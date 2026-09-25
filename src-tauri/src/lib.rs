@@ -36,6 +36,8 @@ pub fn run() {
             commands::encrypt_file,
             commands::verify_decrypt_password,
             commands::decrypt_file,
+            commands::encrypt_text,
+            commands::decrypt_text,
         ])
         .build(tauri::generate_context!())
         .expect("error while running tauri application")

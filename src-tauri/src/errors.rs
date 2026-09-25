@@ -78,6 +78,11 @@ impl AppError {
                 "special_file",
                 "Arquivos especiais não são aceitos.",
             ),
+            CryptoError::EmptyText => ("empty_text", "Nenhum conteúdo informado."),
+            CryptoError::EmptyPassword => ("empty_password", "Informe uma senha."),
+            CryptoError::MessageTooLong => ("text_too_long", "A mensagem é longa demais."),
+            CryptoError::InvalidMessage => ("invalid_message", "Mensagem OpenPGP inválida."),
+            CryptoError::WrongPassword => ("wrong_password", "Senha incorreta."),
         };
         Self::new(code, message, error)
     }

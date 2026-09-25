@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { APP_NAME, APP_WEBSITE, APP_WEBSITE_LABEL } from "../branding";
 import { DocumentMark, ScannerBand } from "../components/DocumentMark";
 import { publishCryptoBusy, UpdateNotice } from "../components/UpdateNotice";
+import { TextPage } from "./TextPage";
 import { locale, messages } from "../i18n/index.ts";
 import { useFileDrop } from "../hooks/useFileDrop";
 import {
@@ -56,6 +57,7 @@ export function EncryptPage() {
   const [revealLabel, setRevealLabel] = useState("Abrir pasta");
   const [busy, setBusy] = useState(false);
   const [openedTemp, setOpenedTemp] = useState(false);
+  const [mode, setMode] = useState<"files" | "text">("files");
 
   useEffect(() => {
     void folderActionLabel()
@@ -101,7 +103,7 @@ export function EncryptPage() {
 
   const rejectDrop = useCallback((message: string) => setNotice(message), []);
   const dragging = useFileDrop({
-    enabled: phase === "pick" || phase === "encrypt" || phase === "decrypt-ask",
+    enabled: mode === "files" && (phase === "pick" || phase === "encrypt" || phase === "decrypt-ask"),
     onFile: (paths) => void chooseFile(paths),
     onReject: rejectDrop,
   });
@@ -295,9 +297,15 @@ export function EncryptPage() {
       <header className="chrome" data-tauri-drag-region>
         <span className="wordmark" data-tauri-drag-region>{APP_NAME}</span>
       </header>
-      <section className={dragging ? "stage hot" : "stage"} key={phase}>
-        {phase === "pick" && (
+      <section className={dragging ? "stage hot" : mode === "text" ? "stage text-mode" : "stage"} key={mode === "text" ? "text" : phase}>
+        {mode === "text" ? (
+          <TextPage onFiles={() => setMode("files")} />
+        ) : phase === "pick" && (
           <>
+            <div className="mode-switch">
+              <button type="button" aria-pressed="true">{messages.filesMode}</button>
+              <button type="button" aria-pressed="false" onClick={() => setMode("text")}>{messages.textMode}</button>
+            </div>
             <div className="band">
               <svg className="arrow" viewBox="0 0 18 18" aria-hidden="true">
                 <path d="M9 2v12M4 10l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.6" />
