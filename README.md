@@ -1,8 +1,8 @@
 # Crypt8
 
-Simple, cross-platform file encryption powered by OpenPGP.
+Simple, cross-platform encryption for files and short messages, powered by OpenPGP.
 
-A small desktop app for encrypting files on your own computer. No account, no server, and no upload as part of encryption. The result is a standard OpenPGP `.gpg` file.
+A small desktop app for encrypting files and text on your own computer. No account, no server, and no upload as part of encryption. A file becomes a standard OpenPGP `.gpg` file. A message becomes OpenPGP text you can copy.
 
 Português: [README-pt_BR.md](README-pt_BR.md)
 
@@ -12,7 +12,9 @@ Português: [README-pt_BR.md](README-pt_BR.md)
 
 Website: [apps.orange8.net](https://apps.orange8.net)
 
-![Crypt8 demo](Crypt8-demo.gif)
+![Crypt8 file encryption](crypt8-file.gif)
+
+![Crypt8 text encryption](crypt8-text.gif)
 
 ## Need to protect a file before sending or storing it?
 
@@ -55,6 +57,7 @@ A single file is encrypted as itself. Several entries are packed into an uncompr
 ## Features
 
 - Local encryption and decryption of files and folders
+- Local encryption and decryption of a short message, up to 2,000 characters, as OpenPGP text
 - Password protection, with the password confirmed before encryption
 - OpenPGP output (`.gpg`), readable by GnuPG
 - A small desktop window: drop a file, or pick one
@@ -97,7 +100,7 @@ A single file stays a single `.gpg` file. It is not compressed, and it is not wr
 - password derived with S2K
 - integrity with SEIPD v1 (MDC from RFC 4880)
 
-There is no ASCII armor, no public key, and no AEAD. Writing does not compress. Reading accepts the compression GnuPG uses by default.
+A file is binary OpenPGP: no ASCII armor, no public key, and no AEAD. A short message uses the same OpenPGP message, written as ASCII armor so it can be pasted into another app. Writing does not compress. Reading accepts the compression GnuPG uses by default.
 
 The original file is not changed. Output is written to `*.gpg.partial` and renamed only at the end. Cancel deletes that partial file.
 
@@ -152,13 +155,15 @@ Updates, once you are on a build that includes them, are checked against the lat
 
 To decrypt, drop a `.gpg` file, confirm that you want to decrypt it, and enter the password. For a normal file you can open it or save a copy. For several files packed as a TAR, opening reveals the folder and saving asks for a directory.
 
+To encrypt a message, choose Text, type up to 2,000 characters, enter a password, and encrypt. Copy the whole block, including `-----BEGIN PGP MESSAGE-----` and `-----END PGP MESSAGE-----`. To read it, choose Text, then Decrypt, paste that block, and enter the password. The original text can be copied. Nothing from this flow is saved.
+
 ## Open source
 
 Crypt8 is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
 
 ## Project status
 
-The version in this source tree is 1.0.5. The project is in active development: the encrypt and decrypt flow is usable, and the interface and release tooling are still being refined.
+The version in this source tree is 1.1.1. The project is in active development: file and text encryption are usable, and the interface and release tooling are still being refined.
 
 ## Contributing
 
