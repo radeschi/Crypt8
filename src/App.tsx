@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import { useEffect } from "react";
 import { installAppMenu } from "./appMenu";
 import { AboutPage } from "./pages/AboutPage";

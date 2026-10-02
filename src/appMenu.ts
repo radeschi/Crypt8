@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import { Menu, MenuItem, PredefinedMenuItem, Submenu } from "@tauri-apps/api/menu";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { LogicalPosition } from "@tauri-apps/api/dpi";

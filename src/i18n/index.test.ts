@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { messagesFor, resolveLocale } from "./index.ts";

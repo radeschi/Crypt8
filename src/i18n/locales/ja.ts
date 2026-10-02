@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import type { Messages } from "../types.ts";
 
 const n = (text: string) => (count: number) => text.split("{count}").join(String(count));

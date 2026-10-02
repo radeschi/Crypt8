@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import { emit, listen } from "@tauri-apps/api/event";
 import { useEffect, useState } from "react";
 import type { Update } from "@tauri-apps/plugin-updater";

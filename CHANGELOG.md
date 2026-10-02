@@ -1,3 +1,10 @@
+<!--
+Developed by: Maicon Radeschi
+Email: radeschi@me.com
+May the Force be with you!
+2026
+-->
+
 # Changelog
 
 All notable changes to Crypt8 are documented in this file.

@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 export type PasswordIssue = "empty" | "mismatch";
 
 export function passwordIssue(password: string, confirmation: string): PasswordIssue | null {

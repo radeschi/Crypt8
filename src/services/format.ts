@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import type { Messages } from "../i18n/types.ts";
 import type { ProgressStatus } from "../types/progress.ts";
 

@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 export const APP_NAME = "Crypt8";
 export const APP_WEBSITE = "https://apps.orange8.net";
 export const APP_WEBSITE_LABEL = "apps.orange8.net";

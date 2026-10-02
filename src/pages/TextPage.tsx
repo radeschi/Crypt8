@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import { useEffect, useState } from "react";
 import { locale, messages } from "../i18n/index.ts";
 import { publishCryptoBusy } from "../components/UpdateNotice";

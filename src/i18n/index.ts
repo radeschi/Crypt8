@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import { en } from "./locales/en.ts";
 import { de } from "./locales/de.ts";
 import { es } from "./locales/es.ts";

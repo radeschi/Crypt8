@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import { invoke } from "@tauri-apps/api/core";
 
 export const MAX_TEXT_MESSAGE_LENGTH = 2000;

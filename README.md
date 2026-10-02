@@ -1,3 +1,10 @@
+<!--
+Developed by: Maicon Radeschi
+Email: radeschi@me.com
+May the Force be with you!
+2026
+-->
+
 # Crypt8
 
 Simple, cross-platform encryption for files and short messages, powered by OpenPGP.

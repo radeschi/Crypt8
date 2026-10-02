@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 export type LocaleId = "pt-BR" | "en" | "es" | "de" | "fr" | "ja" | "zh-CN";
 
 export interface Messages {

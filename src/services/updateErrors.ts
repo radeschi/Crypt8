@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 export type UpdateFailure = "signature" | "check" | "install";
 
 export function updateFailure(error: unknown, phase: "check" | "install"): UpdateFailure {

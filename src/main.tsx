@@ -1,3 +1,8 @@
+// Developed by: Maicon Radeschi
+// Email: radeschi@me.com
+// May the Force be with you!
+// 2026
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
